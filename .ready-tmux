@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+tmux rename-window -t 1 "nvim"
+tmux send-keys -t nvim "nvim ." Enter
+
+tmux neww -dn "scratch"
