@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/devinmiller/fem-vanilla-js-go/internal/app"
+	"github.com/devinmiller/fem-vanilla-js-go/internal/routes"
 )
 
 func main() {
@@ -19,8 +20,10 @@ func main() {
 		panic(err)
 	}
 
+	r := routes.SetupRoutes(app)
 	server := &http.Server{
 		Addr:         fmt.Sprintf(":%d", port),
+		Handler:      r,
 		IdleTimeout:  time.Minute,
 		ReadTimeout:  10 * time.Second,
 		WriteTimeout: 30 * time.Second,
