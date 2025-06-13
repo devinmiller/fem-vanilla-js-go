@@ -1,26 +1,25 @@
 package app
 
 import (
-	"log"
-	"os"
+	"github.com/devinmiller/fem-vanilla-js-go/internal/logger"
 )
 
 type Application struct {
-	Logger *log.Logger
+	Logger *logger.Logger
 }
 
 func NewApplication() (*Application, error) {
 	// db connection will go here
 
 	// logger will go here
-	logger := log.New(os.Stdout, "", log.Ldate|log.Ltime)
+	appLogger := logger.NewLogger()
 
 	// stores will go here
 
 	// handlers will go here
 
 	app := &Application{
-		Logger: logger,
+		Logger: appLogger,
 	}
 
 	return app, nil

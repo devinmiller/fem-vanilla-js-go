@@ -12,7 +12,7 @@ import (
 
 func main() {
 	var port int
-	flag.IntVar(&port, "port", 8080, "go backend server port")
+	flag.IntVar(&port, "port", 8081, "go backend server port")
 	flag.Parse()
 
 	app, err := app.NewApplication()
@@ -31,6 +31,6 @@ func main() {
 
 	err = server.ListenAndServe()
 	if err != nil {
-		app.Logger.Fatal(err)
+		app.Logger.Fatal("error starting server", err)
 	}
 }
