@@ -16,6 +16,8 @@ func SetupRoutes(app *app.Application) *chi.Mux {
 		fmt.Fprint(w, "status is available\n")
 	})
 
+	r.Get("/api/movies/top", app.MovieHandler.GetTopMovies)
+
 	filesDir := http.Dir("public")
 	FileServer(r, "/", filesDir)
 

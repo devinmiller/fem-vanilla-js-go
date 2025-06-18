@@ -4,10 +4,20 @@ import (
 	"encoding/json"
 	"net/http"
 
+	"github.com/devinmiller/fem-vanilla-js-go/internal/logger"
 	"github.com/devinmiller/fem-vanilla-js-go/internal/models"
+	"github.com/devinmiller/fem-vanilla-js-go/internal/utils"
 )
 
-type MovieHandler struct{}
+type MovieHandler struct {
+	logger *logger.Logger
+}
+
+func NewMovieHandler(logger *logger.Logger) *MovieHandler {
+	return &MovieHandler{
+		logger: logger,
+	}
+}
 
 func (m *MovieHandler) GetTopMovies(w http.ResponseWriter, r *http.Request) {
 	movies := []models.Movie{
@@ -31,8 +41,12 @@ func (m *MovieHandler) GetTopMovies(w http.ResponseWriter, r *http.Request) {
 		},
 	}
 
-	w.Header().Set("Content-Type", "application/json")
+	// w.Header().Set("Content-Type", "application/json")
 	if err := json.NewEncoder(w).Encode(movies); err != nil {
-		// TODO: log
+		m.logger.Error("encoding GetTopMovies: %v", err)
+		utils.WriteError(w, http.StatusInternalServerError)
+		return
 	}
+
+	utils.WriteJSON(w, http.StatusOK, utils.Envelope{"movies": movies})
 }

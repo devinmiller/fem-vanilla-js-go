@@ -1,11 +1,13 @@
 package app
 
 import (
+	"github.com/devinmiller/fem-vanilla-js-go/internal/handlers"
 	"github.com/devinmiller/fem-vanilla-js-go/internal/logger"
 )
 
 type Application struct {
-	Logger *logger.Logger
+	Logger       *logger.Logger
+	MovieHandler *handlers.MovieHandler
 }
 
 func NewApplication() (*Application, error) {
@@ -17,9 +19,11 @@ func NewApplication() (*Application, error) {
 	// stores will go here
 
 	// handlers will go here
+	movieHandler := handlers.NewMovieHandler(appLogger)
 
 	app := &Application{
-		Logger: appLogger,
+		Logger:       appLogger,
+		MovieHandler: movieHandler,
 	}
 
 	return app, nil
