@@ -10,3 +10,15 @@ services:
     ports:
       - "8081:8081"
     restart: unless-stopped
+  db:
+    container_name: "fem-vanilla-js-go-db"
+    image: postgres:12.4-alpine
+    volumes:
+      - "./database/postgres-data:/var/lib/postgresql/data:rw"
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    environment:
+      POSTGRES_DB: "postgres"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+    restart: unless-stopped

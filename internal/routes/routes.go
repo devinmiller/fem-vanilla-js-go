@@ -17,6 +17,7 @@ func SetupRoutes(app *app.Application) *chi.Mux {
 	})
 
 	r.Get("/api/movies/top", app.MovieHandler.GetTopMovies)
+	r.Get("/api/movies/random", app.MovieHandler.GetRandomMovies)
 
 	filesDir := http.Dir("public")
 	FileServer(r, "/", filesDir)

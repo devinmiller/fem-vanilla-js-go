@@ -8,6 +8,7 @@ import (
 
 	"github.com/devinmiller/fem-vanilla-js-go/internal/app"
 	"github.com/devinmiller/fem-vanilla-js-go/internal/routes"
+	"github.com/joho/godotenv"
 )
 
 func main() {
@@ -15,10 +16,15 @@ func main() {
 	flag.IntVar(&port, "port", 8081, "go backend server port")
 	flag.Parse()
 
+	if err := godotenv.Load(); err != nil {
+		panic(err)
+	}
+
 	app, err := app.NewApplication()
 	if err != nil {
 		panic(err)
 	}
+	defer app.DB.Close()
 
 	r := routes.SetupRoutes(app)
 	server := &http.Server{

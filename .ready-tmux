@@ -3,4 +3,7 @@
 tmux rename-window -t 1 "nvim"
 tmux send-keys -t nvim "nvim ." Enter
 
+tmux neww -dn "hot-reload"
+tmux send-keys -t hot-reload "air -c .air.toml" Enter
+
 tmux neww -dn "scratch"
