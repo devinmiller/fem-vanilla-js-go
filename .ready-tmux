@@ -6,4 +6,7 @@ tmux send-keys -t nvim "nvim ." Enter
 tmux neww -dn "hot-reload"
 tmux send-keys -t hot-reload "air -c .air.toml" Enter
 
+tmux neww -dn "psql"
+tmux send-keys -t psql "PGPASSWORD=postgres psql -U postgres -h fem-vanilla-js-go-db -p 5432" Enter
+
 tmux neww -dn "scratch"

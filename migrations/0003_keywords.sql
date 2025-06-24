@@ -12,6 +12,8 @@ CREATE TABLE "public"."keywords" (
     PRIMARY KEY ("id")
 );
 
+CREATE UNIQUE INDEX keywords_word_key ON public.keywords USING btree (word);
+
 INSERT INTO "public"."keywords" ("id", "word") VALUES
 (1, 'texas'),
 (2, 'saving the world'),

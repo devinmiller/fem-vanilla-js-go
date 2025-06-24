@@ -12,6 +12,8 @@ CREATE TABLE "public"."genres" (
     PRIMARY KEY ("id")
 );
 
+CREATE UNIQUE INDEX genres_name_key ON public.genres USING btree (name);
+
 INSERT INTO "public"."genres" ("id", "name") VALUES
 (1, 'Adventure'),
 (2, 'Action'),

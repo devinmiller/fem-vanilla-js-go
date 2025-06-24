@@ -21,6 +21,8 @@ CREATE TABLE "public"."movies" (
     PRIMARY KEY ("id")
 );
 
+CREATE UNIQUE INDEX unique_tmdb_id ON public.movies USING btree (tmdb_id);
+
 INSERT INTO "public"."movies" ("id", "tmdb_id", "title", "tagline", "release_year", "overview", "score", "popularity", "language", "poster_url", "trailer_url") VALUES
 (1, 38757, 'Tangled', 'They''re taking adventure to new lengths.', 2010, 'When the kingdom''s most wanted-and most charming-bandit Flynn Rider hides out in a mysterious tower, he''s taken hostage by Rapunzel, a beautiful and feisty tower-bound teen with 70 feet of magical, golden hair. Flynn''s curious captor, who''s looking for her ticket out of the tower where she''s been locked away for years, strikes a deal with the handsome thief and the unlikely duo sets off on an action-packed escapade, complete with a super-cop horse, an over-protective chameleon and a gruff gang of pub thugs.', 7.4, 48.68197, 'en', 'https://image.tmdb.org/t/p/w500/ym7Kst6a4uodryxqbGOxmewF235.jpg', 'https://www.youtube.com/watch?v=gsYKF8ecC8g'),
 (2, 10764, 'Quantum of Solace', 'For love, for hate, for justice, for revenge.', 2008, 'Quantum of Solace continues the adventures of James Bond after Casino Royale. Betrayed by Vesper, the woman he loved, 007 fights the urge to make his latest mission personal. Pursuing his determination to uncover the truth, Bond and M interrogate Mr. White, who reveals that the organization that blackmailed Vesper is far more complex and dangerous than anyone had imagined.', 6.1, 107.92881, 'en', 'https://image.tmdb.org/t/p/w500/e3DXXLJHGqMx9yYpXsql1XNljmM.jpg', 'https://www.youtube.com/watch?v=BBqYaFEWBxI'),
