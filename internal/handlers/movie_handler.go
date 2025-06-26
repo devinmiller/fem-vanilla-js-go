@@ -1,82 +1,51 @@
 package handlers
 
 import (
-	"encoding/json"
 	"net/http"
 
 	"github.com/devinmiller/fem-vanilla-js-go/internal/logger"
-	"github.com/devinmiller/fem-vanilla-js-go/internal/models"
+	"github.com/devinmiller/fem-vanilla-js-go/internal/store"
 	"github.com/devinmiller/fem-vanilla-js-go/internal/utils"
 )
 
 type MovieHandler struct {
-	logger *logger.Logger
+	movieStore store.MovieStore
+	logger     *logger.Logger
 }
 
-func NewMovieHandler(logger *logger.Logger) *MovieHandler {
+func NewMovieHandler(movieStore store.MovieStore, logger *logger.Logger) *MovieHandler {
 	return &MovieHandler{
-		logger: logger,
+		movieStore: movieStore,
+		logger:     logger,
 	}
 }
 
 func (m *MovieHandler) GetTopMovies(w http.ResponseWriter, r *http.Request) {
-	movies := []models.Movie{
-		{
-			ID:          1,
-			TMDB_ID:     181,
-			Title:       "The Hacker",
-			ReleaseYear: 2022,
-			Genres:      []models.Genre{{ID: 1, Name: "Thriller"}},
-			Keywords:    []string{},
-			Casting:     []models.Actor{{ID: 1, FirstName: "Max"}},
-		},
-		{
-			ID:          2,
-			TMDB_ID:     181,
-			Title:       "Back to the Future",
-			ReleaseYear: 1984,
-			Genres:      []models.Genre{{ID: 1, Name: "Thriller"}},
-			Keywords:    []string{},
-			Casting:     []models.Actor{{ID: 1, FirstName: "Max"}},
-		},
-	}
-
-	if err := json.NewEncoder(w).Encode(movies); err != nil {
-		m.logger.Error("encoding GetTopMovies: %v", err)
+	movies, err := m.movieStore.GetTopMovies()
+	if err != nil {
+		m.logger.Error("GetTopMovies - Query", err)
 		utils.WriteError(w, http.StatusInternalServerError)
 		return
 	}
 
-	utils.WriteJSON(w, http.StatusOK, utils.Envelope{"movies": movies})
+	err = utils.WriteJSON(w, http.StatusOK, utils.Envelope{"movies": movies})
+	if err != nil {
+		m.logger.Error("GetTopMovies - Encoding", err)
+		utils.WriteError(w, http.StatusInternalServerError)
+	}
 }
 
 func (m *MovieHandler) GetRandomMovies(w http.ResponseWriter, r *http.Request) {
-	movies := []models.Movie{
-		{
-			ID:          1,
-			TMDB_ID:     181,
-			Title:       "The Random Hacker",
-			ReleaseYear: 2022,
-			Genres:      []models.Genre{{ID: 1, Name: "Thriller"}},
-			Keywords:    []string{},
-			Casting:     []models.Actor{{ID: 1, FirstName: "Max"}},
-		},
-		{
-			ID:          2,
-			TMDB_ID:     181,
-			Title:       "Back to the Random Future",
-			ReleaseYear: 1984,
-			Genres:      []models.Genre{{ID: 1, Name: "Thriller"}},
-			Keywords:    []string{},
-			Casting:     []models.Actor{{ID: 1, FirstName: "Max"}},
-		},
-	}
-
-	if err := json.NewEncoder(w).Encode(movies); err != nil {
-		m.logger.Error("encoding GetRandomMovies: %v", err)
+	movies, err := m.movieStore.GetRandomMovies()
+	if err != nil {
+		m.logger.Error("GetRandomMovies - Query", err)
 		utils.WriteError(w, http.StatusInternalServerError)
 		return
 	}
 
-	utils.WriteJSON(w, http.StatusOK, utils.Envelope{"movies": movies})
+	err = utils.WriteJSON(w, http.StatusOK, utils.Envelope{"movies": movies})
+	if err != nil {
+		m.logger.Error("GetRandomMovies - Encoding", err)
+		utils.WriteError(w, http.StatusInternalServerError)
+	}
 }

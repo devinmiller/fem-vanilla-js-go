@@ -31,9 +31,10 @@ func NewApplication() (*Application, error) {
 	appLogger := logger.NewLogger()
 
 	// stores will go here
+	movieStore := store.NewPostgresMovieStore(pgDB)
 
 	// handlers will go here
-	movieHandler := handlers.NewMovieHandler(appLogger)
+	movieHandler := handlers.NewMovieHandler(movieStore, appLogger)
 
 	app := &Application{
 		Logger:       appLogger,
