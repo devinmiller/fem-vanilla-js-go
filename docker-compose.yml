@@ -3,7 +3,7 @@ name: fem-vanilla-js-go
 services:
   dev:
     container_name: "fem-vanilla-js-go"
-    image: "${IMAGE:-dimwittedmonkey}/dev-gopsql:latest"
+    image: "${IMAGE:-dimwittedmonkey}/dev-go:latest"
     volumes:
       - "${SOURCE:-~/src}:/workspace"
       - "${SSH:-~/.ssh}:/home/neodev/.ssh"
