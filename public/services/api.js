@@ -3,6 +3,9 @@ export const API = {
   getTopMovies: async () => {
     return API.fetch("movies/top");
   },
+  getRandomMovies: async () => {
+    return API.fetch("movies/random");
+  },
   fetch: async (serviceUrl, args) => {
     try {
       const response = await fetch(API.baseURL + "/movies/top");
