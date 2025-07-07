@@ -1,5 +1,7 @@
 import { API } from "./services/api.js";
 
+import "./components/HomePage.js"
+
 window.app = {
   search: (event) => {
     event.preventDefault();
