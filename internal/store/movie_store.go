@@ -2,6 +2,7 @@ package store
 
 import (
 	"database/sql"
+	"errors"
 	"fmt"
 
 	"github.com/devinmiller/fem-vanilla-js-go/internal/models"
@@ -192,16 +193,20 @@ func (pg *PostgresMovieStore) GetMovieById(id int) (models.Movie, error) {
 	)
 
 	if err == sql.ErrNoRows {
-		return models.Movie{}, fmt.Errorf("Failed to get movie for id: %d", id)
+		// return models.Movie{}, fmt.Errorf("Failed to get movie for id: %d", id)
+		return models.Movie{}, ErrMovieNotFound
 	}
 
 	if err != nil {
-		return models.Movie{}, fmt.Errorf("")
+		return models.Movie{}, fmt.Errorf("GetMovieById: %w", err)
 	}
 
 	err = pg.getMovieRelations(&m)
 	if err != nil {
+		return models.Movie{}, fmt.Errorf("GetMovieById - getMovieRelations: %w", err)
 	}
 
 	return m, nil
 }
+
+var ErrMovieNotFound = errors.New("movie not found")

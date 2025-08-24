@@ -49,3 +49,19 @@ func (m *MovieHandler) GetRandomMovies(w http.ResponseWriter, r *http.Request) {
 		utils.WriteError(w, http.StatusInternalServerError)
 	}
 }
+
+func (m *MovieHandler) GetMovie(w http.ResponseWriter, r *http.Request) {
+	id, err := utils.ReadIDParam(r)
+	if err != nil {
+		m.logger.Error("ERROR: ReadIDParam", err)
+		utils.WriteError(w, http.StatusBadRequest)
+	}
+
+	movie, err := m.movieStore.GetMovieById(id)
+	if err != nil {
+		m.logger.Error("ERROR: GetmovieById", err)
+		utils.WriteError(w, http.StatusInternalServerError)
+	}
+
+	utils.WriteJSON(w, http.StatusOK, utils.Envelope{"movie": movie})
+}

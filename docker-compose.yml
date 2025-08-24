@@ -1,16 +1,8 @@
 name: fem-vanilla-js-go
 
 services:
-  dev:
-    container_name: "fem-vanilla-js-go"
-    image: "${IMAGE:-dimwittedmonkey}/dev-go:latest"
-    volumes:
-      - "${SOURCE:-~/src}:/workspace"
-      - "${SSH:-~/.ssh}:/home/neodev/.ssh"
-    ports:
-      - "8081:8081"
-    restart: unless-stopped
   db:
+    user: "1000"
     container_name: "fem-vanilla-js-go-db"
     image: postgres:12.4-alpine
     volumes:
