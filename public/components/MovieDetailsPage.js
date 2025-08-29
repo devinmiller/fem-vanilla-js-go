@@ -4,14 +4,12 @@ export class MovieDetailsPage extends HTMLElement {
   id = null;
   movie = null;
 
-  async render() {
+  async render(id) {
     try {
-      const result = await API.getMovieById(this.id);
+      const result = await API.getMovieById(id);
       this.movie = result.movie;
-      console.log(this.movie);
     } catch (e) {
       // TODO: alert user
-      console.log("error", e);
       return;
     }
     const template = document.getElementById("template-movie-details");
@@ -53,8 +51,8 @@ export class MovieDetailsPage extends HTMLElement {
   }
 
   connectedCallback() {
-    this.id = 15 // TODO: this.dataset.id; // data-id
-    this.render();
+    const id = this.params[0]; // data-id
+    this.render(id);
   }
 }
 customElements.define("movie-details-page", MovieDetailsPage);

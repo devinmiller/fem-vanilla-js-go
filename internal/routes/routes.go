@@ -16,6 +16,8 @@ func SetupRoutes(app *app.Application) *chi.Mux {
 		fmt.Fprint(w, "status is available\n")
 	})
 
+	fmt.Println("THIS IS A TEST")
+
 	r.Get("/api/movies/top", app.MovieHandler.GetTopMovies)
 	r.Get("/api/movies/random", app.MovieHandler.GetRandomMovies)
 	r.Get("/api/movies/{id}", app.MovieHandler.GetMovie)
