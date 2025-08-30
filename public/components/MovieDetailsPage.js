@@ -10,6 +10,7 @@ export class MovieDetailsPage extends HTMLElement {
       this.movie = result.movie;
     } catch (e) {
       // TODO: alert user
+      app.showError();
       return;
     }
     const template = document.getElementById("template-movie-details");

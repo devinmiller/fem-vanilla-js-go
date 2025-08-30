@@ -46,8 +46,25 @@ const Router = {
       pageElement.textContent = "Page Not found";
     }
     // page exists for current URL
-    document.querySelector("main").innerHTML = "";
-    document.querySelector("main").appendChild(pageElement);
+    const oldPage = document.querySelector("main").firstElementChild;
+    if (oldPage) {
+      oldPage.style.viewTransitionName = "old";
+    }
+    pageElement.style.viewTransitionName = "new";
+
+    function updatePage() {
+      document.querySelector("main").innerHTML = "";
+      document.querySelector("main").appendChild(pageElement);
+    }
+
+    if (!document.startViewTransition) {
+      updatePage();
+    } else {
+      document.startViewTransition(() => {
+        updatePage();
+      });
+    }
+
   }
 };
 

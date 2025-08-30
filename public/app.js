@@ -12,7 +12,17 @@ window.app = {
     event.preventDefault();
     const q = document.querySelector("input[type=search]").value;
   },
-  api: API
+  api: API,
+  showError: (message = "There was an error loading the page", goToHome = true) => {
+    document.querySelector("#alert-modal").showModal();
+    document.querySelector("#alert-modal p").textContents = message;
+    if (goToHome) {
+      app.Router.go("/");
+    }
+  },
+  closeError: () => {
+    document.getElementById("alert-modal").close();
+  }
 };
 
 window.addEventListener("DOMContentLoaded", () => {

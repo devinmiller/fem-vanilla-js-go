@@ -2,7 +2,7 @@ name: fem-vanilla-js-go
 
 services:
   db:
-    # user: "1000"
+    user: "${USER}"
     container_name: "fem-vanilla-js-go-db"
     image: postgres:12.4-alpine
     volumes:
